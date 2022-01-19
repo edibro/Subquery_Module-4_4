@@ -9,5 +9,5 @@ blockheight: Int
 type SumReward @entity{
 id: ID! # AccountId
 totalReward: BigInt!
-blockheight: Int!
+blockheight: Int
 }

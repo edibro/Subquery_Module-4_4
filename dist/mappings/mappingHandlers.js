@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleSumRewarded = exports.handleStakingRewarded = void 0;
+exports.handleSumReward = exports.handleStakingReward = void 0;
 const types_1 = require("../types");
-async function handleStakingRewarded(event) {
+async function handleStakingReward(event) {
     const { event: { data: [account, newReward] } } = event;
     const entity = new types_1.StakingReward(`${event.block.block.header.number}-${event.idx.toString()}`);
     entity.accountId = account.toString();
@@ -10,13 +10,13 @@ async function handleStakingRewarded(event) {
     entity.date = event.block.timestamp;
     await entity.save();
 }
-exports.handleStakingRewarded = handleStakingRewarded;
+exports.handleStakingReward = handleStakingReward;
 function createSumReward(accountId) {
     const entity = new types_1.SumReward(accountId);
     entity.totalReward = BigInt(0);
     return entity;
 }
-async function handleSumRewarded(event) {
+async function handleSumReward(event) {
     const { event: { data: [account, newReward] } } = event;
     let entity = await types_1.SumReward.get(account.toString());
     if (entity === undefined) {
@@ -26,4 +26,4 @@ async function handleSumRewarded(event) {
     entity.blockheight = event.block.block.header.number.toNumber();
     await entity.save();
 }
-exports.handleSumRewarded = handleSumRewarded;
+exports.handleSumReward = handleSumReward;
